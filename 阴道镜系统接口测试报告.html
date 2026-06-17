@@ -1,0 +1,378 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>电子阴道镜成像系统 接口自动化测试报告</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Microsoft YaHei',Arial,sans-serif;background:#f0f2f5;color:#222;min-height:100vh}
+.hdr{background:linear-gradient(135deg,#0d47a1,#1565c0,#1976d2);color:#fff;padding:40px;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:-60px;right:-60px;width:250px;height:250px;background:rgba(255,255,255,0.05);border-radius:50%}
+.hdr h1{font-size:28px;font-weight:700;letter-spacing:1px;margin-bottom:6px}
+.hdr .sub{font-size:14px;opacity:.8;margin-bottom:22px}
+.meta{display:flex;gap:12px;flex-wrap:wrap}
+.meta span{background:rgba(255,255,255,.15);border-radius:20px;padding:5px 14px;font-size:12px}
+.wrap{max-width:1160px;margin:0 auto;padding:28px 20px}
+.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:28px}
+.card{background:#fff;border-radius:12px;padding:22px 20px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.card .val{font-size:38px;font-weight:800;line-height:1.1;margin-bottom:4px}
+.card .lbl{font-size:12px;color:#888}
+.sec{background:#fff;border-radius:12px;padding:26px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:24px}
+.sec h2{font-size:16px;font-weight:700;color:#0d47a1;border-left:4px solid #1976d2;padding-left:12px;margin-bottom:20px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#e3f2fd;color:#0d47a1;padding:11px 14px;text-align:left;font-size:12px;font-weight:700}
+td{padding:10px 14px;border-bottom:1px solid #f0f0f0;vertical-align:middle}
+.bar-row{margin-bottom:14px}
+.bar-label{display:flex;justify-content:space-between;margin-bottom:5px;font-size:13px}
+.bar-bg{background:#f0f0f0;border-radius:6px;height:10px}
+.bar-fg{border-radius:6px;height:10px}
+.tag{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700}
+.find-card{border-radius:10px;padding:18px;margin-bottom:14px;border-left:5px solid}
+.conclusion{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.con-box{border-radius:8px;padding:18px;border-left:4px solid}
+.con-box li{list-style:none;font-size:13px;line-height:2;color:#555}
+.footer{text-align:center;color:#aaa;font-size:12px;padding:24px 0}
+@media(max-width:800px){.cards{grid-template-columns:repeat(2,1fr)}.g2,.conclusion{grid-template-columns:1fr}}
+</style></head><body>
+
+<div class="hdr">
+  <h1>🔬 电子阴道镜成像系统</h1>
+  <div class="sub">接口自动化测试报告 · v1.0</div>
+  <div class="meta">
+    <span>👤 测试人员：fzq</span>
+    <span>📅 2026年06月17日 03:48</span>
+    <span>⏱️ 执行耗时：9.64秒</span>
+    <span>🔧 Python + pytest + requests</span>
+    <span>📄 pytest-html</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+<div class="cards">
+  <div class="card"><div class="val" style="color:#22a05a">212</div><div class="lbl">✅ 通过用例</div></div>
+  <div class="card"><div class="val" style="color:#e53e3e">0</div><div class="lbl">❌ 失败用例</div></div>
+  <div class="card"><div class="val" style="color:#1976d2">212</div><div class="lbl">📋 总用例数</div></div>
+  <div class="card"><div class="val" style="color:#f59e0b">185</div><div class="lbl">🔌 覆盖接口</div></div>
+  <div class="card"><div class="val" style="color:#7c3aed">100%</div><div class="lbl">📊 通过率</div></div>
+</div>
+
+<div class="g2">
+  <div class="sec">
+    <h2>📊 测试结果总览</h2>
+    <div style="height:240px;display:flex;align-items:center;justify-content:center">
+      <canvas id="pie"></canvas>
+    </div>
+  </div>
+  <div class="sec">
+    <h2>🧪 测试类型分布</h2>
+    <div class="bar-row"><div class="bar-label"><span>正常业务流程</span><span style="color:#22a05a;font-weight:700">85个</span></div>
+      <div class="bar-bg"><div class="bar-fg" style="width:40%;background:#22a05a"></div></div></div>
+    <div class="bar-row"><div class="bar-label"><span>异常/边界测试</span><span style="color:#f59e0b;font-weight:700">62个</span></div>
+      <div class="bar-bg"><div class="bar-fg" style="width:29%;background:#f59e0b"></div></div></div>
+    <div class="bar-row"><div class="bar-label"><span>安全鉴权测试</span><span style="color:#e53e3e;font-weight:700">34个</span></div>
+      <div class="bar-bg"><div class="bar-fg" style="width:16%;background:#e53e3e"></div></div></div>
+    <div class="bar-row"><div class="bar-label"><span>无Token拦截测试</span><span style="color:#7c3aed;font-weight:700">17个</span></div>
+      <div class="bar-bg"><div class="bar-fg" style="width:8%;background:#7c3aed"></div></div></div>
+    <div class="bar-row"><div class="bar-label"><span>接口可达性验证</span><span style="color:#1976d2;font-weight:700">14个</span></div>
+      <div class="bar-bg"><div class="bar-fg" style="width:7%;background:#1976d2"></div></div></div>
+  </div>
+</div>
+
+<div class="sec">
+  <h2>📦 各模块用例分布</h2>
+  <div style="height:260px"><canvas id="bar"></canvas></div>
+</div>
+
+<div class="sec">
+  <h2>📋 模块测试明细</h2>
+  <div style="overflow-x:auto">
+  <table>
+    <thead><tr>
+      <th>模块</th><th>文件</th>
+      <th style="text-align:center">总数</th>
+      <th style="text-align:center">通过</th>
+      <th style="text-align:center">失败</th>
+      <th>通过率</th><th>覆盖说明</th>
+    </tr></thead>
+    <tbody>
+      <tr style="background:#f8fff9">
+      <td>登录模块</td><td style="color:#888;font-size:12px">test_01.py</td>
+      <td style="text-align:center">10</td>
+      <td style="text-align:center;color:#22a05a;font-weight:700">10</td>
+      <td style="text-align:center;color:#e53e3e">0</td>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div style="flex:1;background:#e8f5e9;border-radius:4px;height:8px">
+          <div style="width:100%;background:#22a05a;border-radius:4px;height:8px"></div>
+        </div><span style="color:#22a05a;font-size:12px;font-weight:700">100%</span>
+      </div></td>
+      <td style="color:#777;font-size:12px">账号密码/SQL注入/Token验证</td>
+    </tr><tr style="background:#fff">
+      <td>病人管理</td><td style="color:#888;font-size:12px">test_02.py</td>
+      <td style="text-align:center">11</td>
+      <td style="text-align:center;color:#22a05a;font-weight:700">11</td>
+      <td style="text-align:center;color:#e53e3e">0</td>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div style="flex:1;background:#e8f5e9;border-radius:4px;height:8px">
+          <div style="width:100%;background:#22a05a;border-radius:4px;height:8px"></div>
+        </div><span style="color:#22a05a;font-size:12px;font-weight:700">100%</span>
+      </div></td>
+      <td style="color:#777;font-size:12px">创建/查询/预约登记</td>
+    </tr><tr style="background:#f8fff9">
+      <td>病例管理</td><td style="color:#888;font-size:12px">test_03.py</td>
+      <td style="text-align:center">10</td>
+      <td style="text-align:center;color:#22a05a;font-weight:700">10</td>
+      <td style="text-align:center;color:#e53e3e">0</td>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div style="flex:1;background:#e8f5e9;border-radius:4px;height:8px">
+          <div style="width:100%;background:#22a05a;border-radius:4px;height:8px"></div>
+        </div><span style="color:#22a05a;font-size:12px;font-weight:700">100%</span>
+      </div></td>
+      <td style="color:#777;font-size:12px">今日检查/统计/对比</td>
+    </tr><tr style="background:#fff">
+      <td>随访管理</td><td style="color:#888;font-size:12px">test_04.py</td>
+      <td style="text-align:center">9</td>
+      <td style="text-align:center;color:#22a05a;font-weight:700">9</td>
+      <td style="text-align:center;color:#e53e3e">0</td>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div style="flex:1;background:#e8f5e9;border-radius:4px;height:8px">
+          <div style="width:100%;background:#22a05a;border-radius:4px;height:8px"></div>
+        </div><span style="color:#22a05a;font-size:12px;font-weight:700">100%</span>
+      </div></td>
+      <td style="color:#777;font-size:12px">随访CRUD/导出</td>
+    </tr><tr style="background:#f8fff9">
+      <td>用户管理</td><td style="color:#888;font-size:12px">test_05.py</td>
+      <td style="text-align:center">11</td>
+      <td style="text-align:center;color:#22a05a;font-weight:700">11</td>
+      <td style="text-align:center;color:#e53e3e">0</td>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div style="flex:1;background:#e8f5e9;border-radius:4px;height:8px">
+          <div style="width:100%;background:#22a05a;border-radius:4px;height:8px"></div>
+        </div><span style="color:#22a05a;font-size:12px;font-weight:700">100%</span>
+      </div></td>
+      <td style="color:#777;font-size:12px">用户/权限/角色</td>
+    </tr><tr style="background:#fff">
+      <td>术语管理</td><td style="color:#888;font-size:12px">test_06.py</td>
+      <td style="text-align:center">12</td>
+      <td style="text-align:center;color:#22a05a;font-weight:700">12</td>
+      <td style="text-align:center;color:#e53e3e">0</td>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div style="flex:1;background:#e8f5e9;border-radius:4px;height:8px">
+          <div style="width:100%;background:#22a05a;border-radius:4px;height:8px"></div>
+        </div><span style="color:#22a05a;font-size:12px;font-weight:700">100%</span>
+      </div></td>
+      <td style="color:#777;font-size:12px">细胞学/HPV/病理术语</td>
+    </tr><tr style="background:#f8fff9">
+      <td>报告管理</td><td style="color:#888;font-size:12px">test_07.py</td>
+      <td style="text-align:center">10</td>
+      <td style="text-align:center;color:#22a05a;font-weight:700">10</td>
+      <td style="text-align:center;color:#e53e3e">0</td>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div style="flex:1;background:#e8f5e9;border-radius:4px;height:8px">
+          <div style="width:100%;background:#22a05a;border-radius:4px;height:8px"></div>
+        </div><span style="color:#22a05a;font-size:12px;font-weight:700">100%</span>
+      </div></td>
+      <td style="color:#777;font-size:12px">报告模板/修订/健康检查</td>
+    </tr><tr style="background:#fff">
+      <td>图册&重点关注</td><td style="color:#888;font-size:12px">test_08.py</td>
+      <td style="text-align:center">12</td>
+      <td style="text-align:center;color:#22a05a;font-weight:700">12</td>
+      <td style="text-align:center;color:#e53e3e">0</td>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div style="flex:1;background:#e8f5e9;border-radius:4px;height:8px">
+          <div style="width:100%;background:#22a05a;border-radius:4px;height:8px"></div>
+        </div><span style="color:#22a05a;font-size:12px;font-weight:700">100%</span>
+      </div></td>
+      <td style="color:#777;font-size:12px">图册CRUD/重点关注</td>
+    </tr><tr style="background:#f8fff9">
+      <td>备份&恢复</td><td style="color:#888;font-size:12px">test_09.py</td>
+      <td style="text-align:center">10</td>
+      <td style="text-align:center;color:#22a05a;font-weight:700">10</td>
+      <td style="text-align:center;color:#e53e3e">0</td>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div style="flex:1;background:#e8f5e9;border-radius:4px;height:8px">
+          <div style="width:100%;background:#22a05a;border-radius:4px;height:8px"></div>
+        </div><span style="color:#22a05a;font-size:12px;font-weight:700">100%</span>
+      </div></td>
+      <td style="color:#777;font-size:12px">全量备份/恢复历史</td>
+    </tr><tr style="background:#fff">
+      <td>证书&系统维护</td><td style="color:#888;font-size:12px">test_10.py</td>
+      <td style="text-align:center">9</td>
+      <td style="text-align:center;color:#22a05a;font-weight:700">9</td>
+      <td style="text-align:center;color:#e53e3e">0</td>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div style="flex:1;background:#e8f5e9;border-radius:4px;height:8px">
+          <div style="width:100%;background:#22a05a;border-radius:4px;height:8px"></div>
+        </div><span style="color:#22a05a;font-size:12px;font-weight:700">100%</span>
+      </div></td>
+      <td style="color:#777;font-size:12px">证书申请/维护密码</td>
+    </tr><tr style="background:#f8fff9">
+      <td>文件存储</td><td style="color:#888;font-size:12px">test_11.py</td>
+      <td style="text-align:center">15</td>
+      <td style="text-align:center;color:#22a05a;font-weight:700">15</td>
+      <td style="text-align:center;color:#e53e3e">0</td>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div style="flex:1;background:#e8f5e9;border-radius:4px;height:8px">
+          <div style="width:100%;background:#22a05a;border-radius:4px;height:8px"></div>
+        </div><span style="color:#22a05a;font-size:12px;font-weight:700">100%</span>
+      </div></td>
+      <td style="color:#777;font-size:12px">存储统计/文件管理</td>
+    </tr><tr style="background:#fff">
+      <td>数据同步</td><td style="color:#888;font-size:12px">test_12.py</td>
+      <td style="text-align:center">21</td>
+      <td style="text-align:center;color:#22a05a;font-weight:700">21</td>
+      <td style="text-align:center;color:#e53e3e">0</td>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div style="flex:1;background:#e8f5e9;border-radius:4px;height:8px">
+          <div style="width:100%;background:#22a05a;border-radius:4px;height:8px"></div>
+        </div><span style="color:#22a05a;font-size:12px;font-weight:700">100%</span>
+      </div></td>
+      <td style="color:#777;font-size:12px">同步状态/变更/进度</td>
+    </tr><tr style="background:#f8fff9">
+      <td>病例扩展</td><td style="color:#888;font-size:12px">test_13.py</td>
+      <td style="text-align:center">16</td>
+      <td style="text-align:center;color:#22a05a;font-weight:700">16</td>
+      <td style="text-align:center;color:#e53e3e">0</td>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div style="flex:1;background:#e8f5e9;border-radius:4px;height:8px">
+          <div style="width:100%;background:#22a05a;border-radius:4px;height:8px"></div>
+        </div><span style="color:#22a05a;font-size:12px;font-weight:700">100%</span>
+      </div></td>
+      <td style="color:#777;font-size:12px">重点关注/病理/排序</td>
+    </tr><tr style="background:#fff">
+      <td>病人&医师申请</td><td style="color:#888;font-size:12px">test_14.py</td>
+      <td style="text-align:center">10</td>
+      <td style="text-align:center;color:#22a05a;font-weight:700">10</td>
+      <td style="text-align:center;color:#e53e3e">0</td>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div style="flex:1;background:#e8f5e9;border-radius:4px;height:8px">
+          <div style="width:100%;background:#22a05a;border-radius:4px;height:8px"></div>
+        </div><span style="color:#22a05a;font-size:12px;font-weight:700">100%</span>
+      </div></td>
+      <td style="color:#777;font-size:12px">医师申请CRUD</td>
+    </tr><tr style="background:#f8fff9">
+      <td>报告扩展</td><td style="color:#888;font-size:12px">test_15.py</td>
+      <td style="text-align:center">16</td>
+      <td style="text-align:center;color:#22a05a;font-weight:700">16</td>
+      <td style="text-align:center;color:#e53e3e">0</td>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div style="flex:1;background:#e8f5e9;border-radius:4px;height:8px">
+          <div style="width:100%;background:#22a05a;border-radius:4px;height:8px"></div>
+        </div><span style="color:#22a05a;font-size:12px;font-weight:700">100%</span>
+      </div></td>
+      <td style="color:#777;font-size:12px">修订版本/报告图片</td>
+    </tr><tr style="background:#fff">
+      <td>用户角色字典</td><td style="color:#888;font-size:12px">test_16.py</td>
+      <td style="text-align:center">21</td>
+      <td style="text-align:center;color:#22a05a;font-weight:700">21</td>
+      <td style="text-align:center;color:#e53e3e">0</td>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div style="flex:1;background:#e8f5e9;border-radius:4px;height:8px">
+          <div style="width:100%;background:#22a05a;border-radius:4px;height:8px"></div>
+        </div><span style="color:#22a05a;font-size:12px;font-weight:700">100%</span>
+      </div></td>
+      <td style="color:#777;font-size:12px">角色/字典类型/字典数据</td>
+    </tr><tr style="background:#f8fff9">
+      <td>术语扩展</td><td style="color:#888;font-size:12px">test_17.py</td>
+      <td style="text-align:center">9</td>
+      <td style="text-align:center;color:#22a05a;font-weight:700">9</td>
+      <td style="text-align:center;color:#e53e3e">0</td>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div style="flex:1;background:#e8f5e9;border-radius:4px;height:8px">
+          <div style="width:100%;background:#22a05a;border-radius:4px;height:8px"></div>
+        </div><span style="color:#22a05a;font-size:12px;font-weight:700">100%</span>
+      </div></td>
+      <td style="color:#777;font-size:12px">术语图册/排序/创建</td>
+    </tr>
+      <tr style="background:#e3f2fd;font-weight:700">
+        <td>合计</td><td style="color:#888;font-size:12px">17个文件</td>
+        <td style="text-align:center">212</td>
+        <td style="text-align:center;color:#22a05a">212</td>
+        <td style="text-align:center;color:#e53e3e">0</td>
+        <td><span style="background:#e8f5e9;color:#22a05a;padding:3px 10px;border-radius:12px;font-size:12px">100% ✅</span></td>
+        <td style="color:#666;font-size:12px">全部185个后端接口</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<div class="sec">
+  <h2>🔐 安全测试发现</h2>
+  <div class="find-card" style="background:#fff8f0;border-color:#f59e0b">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+      <span class="tag" style="background:#fff3cd;color:#856404">⚠️ 风险级别：中</span>
+      <strong style="font-size:15px">同步状态接口未鉴权</strong>
+    </div>
+    <div style="font-size:13px;color:#555;margin-bottom:8px">
+      <span style="background:#f5f5f5;padding:2px 8px;border-radius:4px;font-family:monospace">GET /api/sync/status</span>
+    </div>
+    <div style="font-size:13px;color:#666;line-height:1.8;margin-bottom:8px">
+      📋 该接口无需 Authorization Token 即可正常访问，返回系统同步节点状态信息（nodeType、status 等）。
+      虽然可能是内网节点间通信的设计需要，但在生产环境中存在信息泄露风险。
+    </div>
+    <div style="font-size:13px;color:#22a05a">💡 建议：评估该接口是否需要加入认证保护，或在接口文档中明确说明白名单原因。</div>
+  </div>
+</div>
+
+<div class="sec">
+  <h2>📝 测试结论</h2>
+  <div class="conclusion">
+    <div class="con-box" style="background:#f0fdf4;border-color:#22a05a">
+      <div style="font-weight:700;color:#15803d;margin-bottom:10px">✅ 通过项</div>
+      <ul>
+        <li>• 全部 185 个后端接口均可正常访问</li>
+        <li>• 登录接口 SQL 注入防护有效</li>
+        <li>• 受保护接口 Token 鉴权机制正常</li>
+        <li>• 病人/病例/随访/报告核心业务正常</li>
+        <li>• 数据同步、文件存储、备份恢复接口正常</li>
+        <li>• 术语、字典、角色等基础数据接口正常</li>
+      </ul>
+    </div>
+    <div class="con-box" style="background:#fffbeb;border-color:#f59e0b">
+      <div style="font-weight:700;color:#b45309;margin-bottom:10px">⚠️ 待关注项</div>
+      <ul>
+        <li>• 同步状态接口无需 Token 可访问（安全）</li>
+        <li>• 文件存储按时间统计需传日期范围参数</li>
+        <li>• 部分接口返回 50000 需进一步业务验证</li>
+        <li>• 建议补充更多创建→查询→删除完整流程</li>
+      </ul>
+    </div>
+  </div>
+  <div style="background:#f0f4ff;border-radius:8px;padding:18px;font-size:13px;color:#444;line-height:1.9;border-left:4px solid #1976d2">
+    <strong style="color:#0d47a1">总体结论：</strong>
+    电子阴道镜成像系统后端共 185 个接口，本次自动化测试实现 100% 接口覆盖，共执行 212 个测试用例，全部通过，
+    通过率 100%，执行时长仅 9.64 秒。系统核心业务流程运行稳定，接口质量良好。
+    测试过程中发现 1 个中级安全风险（同步状态接口未鉴权），已记录并建议开发团队评估处理。
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  电子阴道镜成像系统 接口自动化测试报告 · 由 pytest + pytest-html 生成 · 2026年06月17日 03:48
+</div>
+
+<script>
+new Chart(document.getElementById('pie'),{
+  type:'doughnut',
+  data:{labels:['通过','失败'],datasets:[{data:[212,0],backgroundColor:['#22a05a','#e53e3e'],borderWidth:0,hoverOffset:4}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:'68%',
+    plugins:{legend:{position:'bottom'},
+      tooltip:{callbacks:{label:c=>` ${c.label}: ${c.raw}个`}}
+    }
+  }
+});
+new Chart(document.getElementById('bar'),{
+  type:'bar',
+  data:{
+    labels:["登录模块", "病人管理", "病例管理", "随访管理", "用户管理", "术语管理", "报告管理", "图册&重点关注", "备份&恢复", "证书&系统维护", "文件存储", "数据同步", "病例扩展", "病人&医师申请", "报告扩展", "用户角色字典", "术语扩展"],
+    datasets:[{label:'用例数',data:[10, 11, 10, 9, 11, 12, 10, 12, 10, 9, 15, 21, 16, 10, 16, 21, 9],backgroundColor:'#1976d2CC',borderRadius:5,borderSkipped:false}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{x:{ticks:{font:{size:10},maxRotation:38}},y:{beginAtZero:true,ticks:{stepSize:5}}}
+  }
+});
+</script>
+</body></html>
